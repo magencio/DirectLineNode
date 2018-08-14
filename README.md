@@ -1,2 +1,2 @@
 # DirectLineNode
-A sample console app to talk to a bot connected with Bot Service via DirectLine
+A sample console app to talk to a bot connected with [Bot Service](https://docs.microsoft.com/en-us/azure/bot-service/?view=azure-bot-service-3.0) via [Direct Line API 3.0](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-concepts?view=azure-bot-service-3.0)
