@@ -4,6 +4,7 @@ import { XMLHttpRequest } from 'xhr2';
 import * as WebSocket from 'ws';
 import { DirectLine, ConnectionStatus, Message, HeroCard } from 'botframework-directlinejs';
 import { generateToken, refreshToken, reconnectToConversation } from './directLine';
+import { debug } from 'util';
 
 // Read configuration
 const botId = config.get('BotId');
@@ -80,6 +81,15 @@ generateToken(directLineKey).then(result => {
         .map(activity => activity as Message)
         .subscribe(message => {
             console.showMessage(message);
+            console.promptUser();
+        });
+
+    // Capture handoff messages from the bot
+    directLine.activity$
+        .filter(activity => activity.type.toString() === 'handoff' && activity.from.id === botId)
+        .subscribe(handoff => {
+            console.showInfo(`Handoff data: ${JSON.stringify(handoff.channelData)}`);
+            console.showInfo(`Conversation transcript: ${JSON.stringify((handoff as any).transcript)}`);
             console.promptUser();
         });
 });
