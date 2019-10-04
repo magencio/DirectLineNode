@@ -43,12 +43,8 @@ generateToken(directLineKey).then(result => {
                     // DirectLine sends a conversationUpdate activity when the bot is added to the conversation and when each user posts a message
                     // to the conversation for the first time. So I'm sending an event at the very beginning to force the conversationUpdate activity for
                     // the user, so the bot says a welcome message to that user before she types anything.
-                    // Now, bots usually check if the id of the user sending the conversationUpdate activity matches the id of the user added to the
-                    // conversation, to show the welcome message to the appropriate user. But DirectLine uses the conversation id as the user id sending
-                    // that conversationUpdate activity, and the user id I set in the 'from' field as the user id being added to the conversation. As I
-                    // need them to match, I must specify the conversation id as the user id in the 'from' field, which makes no sense but works fine.
                     directLine.postActivity({
-                        from: { id: (directLine as any).conversationId },
+                        from: user,
                         type: 'event',
                         name: 'conversationUpdate',
                         value: ''
